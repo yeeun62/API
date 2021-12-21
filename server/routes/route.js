@@ -22,6 +22,8 @@ router.get("/captcha/ncloud", controller.captchaNcloudImg);
 
 // handle chat
 router.post("/chat/create", controller.chat.create);
-router.get("/chat/read/:id", controller.chat.read);
+router.get("/chat/:code", controller.chat.read);
+router.post("/chat/invite/:code", controller.chat.invite);
+router.post("/chat/send", controller.chat.send);
 
 module.exports = router;
