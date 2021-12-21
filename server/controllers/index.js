@@ -1,0 +1,17 @@
+module.exports = {
+	aligo: require("./msg/aligo"),
+	orange: require("./msg/orange"),
+	qrNode: require("./qrCode/node"),
+	qrGoogle: require("./qrCode/google"),
+	shortNaver: require("./shortURL/naver"),
+	shortNcloud: require("./shortURL/nCloud"),
+	captchaNcloudImg: require("./captcha/nCloudImg"),
+	captchaNcloudCheck: require("./captcha/nCloudCheck"),
+	ocrKakao: require("./ocr/kakao"),
+	translationGoogle: require("./translation/google"),
+	translationKakao: require("./translation/kakao"),
+	translationPapago: require("./translation/papago"),
+	languagePapago: require("./language/papago"),
+	languageKakao: require("./language/kakao"),
+	chat: require("./chat/chat"),
+};
