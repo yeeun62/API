@@ -38,7 +38,10 @@ module.exports = {
 		set(memberRef, { userName, userPhoneNumber, userId });
 
 		res
-			.cookie("sender", userName, { httpOnly: true })
+			.cookie("sender", userName, {
+				httpOnly: true,
+				secure: true,
+			})
 			.status(200)
 			.json({
 				message: "짝짝짝 성공입니다! 채팅방 생성이 완료되었습니다🥳",
@@ -73,7 +76,6 @@ module.exports = {
 				onlyOnce: true,
 			}
 		);
-
 		res
 			.cookie("sender", userName, { httpOnly: true })
 			.status(200)
@@ -81,7 +83,32 @@ module.exports = {
 	},
 
 	//! 채팅 보내기
-	send: async (req, res) => {},
+	send: async (req, res) => {
+		const { message, read, sender } = req.body;
+		const code = req.params.code;
+
+		const db = getDatabase();
+		const dbRef = ref(db, "chat");
+
+		const time = Date.parse(new Date().toLocaleString()) / 1000;
+		let msg = { message, read, sender, time };
+
+		onValue(
+			dbRef,
+			async (snapshot) => {
+				let data = snapshot.val();
+				for (let el in data) {
+					if (data[el].site.code === code) {
+						const send = ref(db, `chat/${el}/send/${time}`);
+						set(send, msg);
+					}
+				}
+			},
+			{
+				onlyOnce: true,
+			}
+		);
+	},
 
 	//! 채팅방 조회
 	//? send를 timestamp로 저장한거 뿌려주기
