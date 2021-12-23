@@ -111,7 +111,6 @@ module.exports = {
 	},
 
 	//! 채팅방 조회
-	//? send를 timestamp로 저장한거 뿌려주기
 	read: async (req, res) => {
 		const code = req.params.code;
 
@@ -138,5 +137,14 @@ module.exports = {
 				onlyOnce: true,
 			}
 		);
+	},
+
+	uuid: async (req, res) => {
+		const uuid = await axios.get(process.env.UUID, {
+			headers: {
+				"HANDLE-API-KEY": process.env.HANDLE_API_KEY,
+			},
+		});
+		res.status(200).json({ code: uuid.data.data.uuid });
 	},
 };

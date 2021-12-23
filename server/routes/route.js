@@ -25,5 +25,6 @@ router.post("/chat/create", controller.chat.create);
 router.get("/chat/:code", controller.chat.read);
 router.post("/chat/invite/:code", controller.chat.invite);
 router.post("/chat/send/:code", controller.chat.send);
+router.get("/uuid", controller.chat.uuid);
 
 module.exports = router;
