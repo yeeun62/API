@@ -1,5 +1,6 @@
 module.exports = {
 	aligo: require("./msg/aligo"),
+	aligoTalk: require("./talk/aligoTalk"),
 	orange: require("./msg/orange"),
 	qrNode: require("./qrCode/node"),
 	qrGoogle: require("./qrCode/google"),

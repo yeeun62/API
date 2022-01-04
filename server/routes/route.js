@@ -7,6 +7,7 @@ const upload = multer({ dest: "uploads/" });
 // 외부 API
 router.post("/msg/aligo", controller.aligo);
 router.post("/msg/orange", controller.orange);
+router.post("/talk/aligo", controller.aligoTalk);
 router.post("/qr/node", controller.qrNode);
 router.post("/qr/google", controller.qrGoogle);
 router.post("/short/naver", controller.shortNaver);
