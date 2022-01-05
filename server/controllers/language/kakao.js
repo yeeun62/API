@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
 					res.status(200).json({
 						statusCode: 200,
 						message: "짝짝짝 성공입니다! 카카오 언어감지가 완료되었습니다🥳",
-						language: JSON.parse(body).language_info[0].code,
+						language: JSON.parse(body).langCode,
 						LogID: logSend.data.id,
 					});
 				} else {

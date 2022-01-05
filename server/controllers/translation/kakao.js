@@ -3,11 +3,11 @@ const logFunc = require("../../func/log");
 require("dotenv").config();
 
 module.exports = async (req, res) => {
+	const { text, source, lang } = req.body;
 	try {
 		const params = new URLSearchParams();
-		params.append("query", req.body.text);
-		params.append("src_lang", req.body.source);
 		params.append("target_lang", req.body.lang);
+		params.append("src_lang", req.body.source);
 
 		let logSend = await logFunc(
 			"kTranslation",
@@ -16,27 +16,56 @@ module.exports = async (req, res) => {
 		);
 
 		try {
-			let translation = await axios.post(
-				"https://dapi.kakao.com/v2/translation/translate",
-				params,
-				{
-					headers: {
-						"Content-Type": "application/x-www-form-urlencoded",
-						Authorization: `KakaoAK ${process.env.KAKAO_AK}`,
-					},
+			if (Array.isArray(text)) {
+				if (text && source && lang) {
+					try {
+						let result = [];
+						for (let txt of req.body.text) {
+							params.append("query", txt);
+							let translation = await axios.post(
+								"https://dapi.kakao.com/v2/translation/translate",
+								params,
+								{
+									headers: {
+										"Content-Type": "application/x-www-form-urlencoded",
+										Authorization: `KakaoAK ${process.env.KAKAO_AK}`,
+									},
+								}
+							);
+							result.push(translation.data.translated_text[0][0]);
+							params.delete("query");
+						}
+						res.status(200).json({ data: result });
+					} catch (err) {
+						console.log("카카오 번역에러", err);
+					}
+				} else {
+					return;
 				}
-			);
-			await logFunc(
-				"kTranslation",
-				"카카오번역 요청 성공로그입니다.",
-				logSend.data.id
-			);
-			res.status(200).json({
-				statusCode: 200,
-				message: "짝짝짝 성공입니다! 카카오번역이 완료되었습니다🥳",
-				data: translation.data.translated_text[0][0],
-				LogID: logSend.data.id,
-			});
+			} else {
+				params.append("query", req.body.text);
+				let translation = await axios.post(
+					"https://dapi.kakao.com/v2/translation/translate",
+					params,
+					{
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded",
+							Authorization: `KakaoAK ${process.env.KAKAO_AK}`,
+						},
+					}
+				);
+				await logFunc(
+					"kTranslation",
+					"카카오번역 요청 성공로그입니다.",
+					logSend.data.id
+				);
+				res.status(200).json({
+					statusCode: 200,
+					message: "짝짝짝 성공입니다! 카카오번역이 완료되었습니다🥳",
+					data: translation.data.translated_text[0][0],
+					LogID: logSend.data.id,
+				});
+			}
 		} catch (err) {
 			await logFunc(
 				"kTranslation",
