@@ -1,4 +1,5 @@
 const axios = require("axios");
+const msToTime = require("../../func/msToTime");
 require("dotenv").config();
 
 module.exports = async (req, res) => {
@@ -13,18 +14,6 @@ module.exports = async (req, res) => {
 				},
 			}
 		);
-
-		function msToTime(duration) {
-			let seconds = parseInt((duration / 1000) % 60),
-				minutes = parseInt((duration / (1000 * 60)) % 60),
-				hours = parseInt((duration / (1000 * 60 * 60)) % 24);
-
-			hours = hours < 10 ? "0" + hours : hours;
-			minutes = minutes < 10 ? "0" + minutes : minutes;
-			seconds = seconds < 10 ? "0" + seconds : seconds;
-
-			return `${hours}시간 ${minutes}분 ${seconds}초`;
-		}
 
 		res.status(200).json({
 			message: drive.data.message,
