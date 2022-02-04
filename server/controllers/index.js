@@ -14,8 +14,9 @@ module.exports = {
 	translationPapago: require("./translation/papago"),
 	languagePapago: require("./language/papago"),
 	languageKakao: require("./language/kakao"),
-	driveNcloud: require("./drive/nCloud"),
-	driveTmap: require("./drive/tmap"),
+	drive: require("./drive/drive"),
+	// driveNcloud: require("./drive/nCloud"),
+	// driveTmap: require("./drive/tmap"),
 
 	chat: require("./chat/chat"),
 };
