@@ -20,8 +20,9 @@ router.post("/translation/papago", controller.translationPapago);
 router.post("/language/papago", controller.languagePapago);
 router.post("/language/kakao", controller.languageKakao);
 router.get("/captcha/ncloud", controller.captchaNcloudImg);
-router.post("/drive/ncloud", controller.driveNcloud);
-router.post("/drive/tmap", controller.driveTmap);
+router.post("/drive", controller.drive);
+// router.post("/drive/ncloud", controller.driveNcloud);
+// router.post("/drive/tmap", controller.driveTmap);
 
 // handle chat
 router.post("/chat/create", controller.chat.create);
