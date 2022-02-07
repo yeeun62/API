@@ -1,3 +1,4 @@
+const { sequelize } = require("./models");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -23,3 +24,5 @@ app.get("/", (req, res) => {
 app.use("/v1", router);
 
 server.listen(80, () => console.log("api 서버 실행"));
+// sequelize.sync({ alter: true })
+// console.log("api 서버 실행")
