@@ -1,3 +1,6 @@
+const axios = require("axios");
+require("dotenv").config();
+
 module.exports = {
   //! 길찾기
   navi: async (req, res) => {
