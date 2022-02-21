@@ -1,6 +1,14 @@
 module.exports = {
   //! 길찾기
   navi: async (req, res) => {
+    function msToTime(duration) {
+      let minutes = parseInt((duration / (1000 * 60)) % 60),
+        hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+      if (hours === 0) {
+        return `${minutes}분`;
+      }
+      return `${hours}시간 ${minutes}분`;
+    }
     try {
       let navi = await axios.get(
         encodeURI(
