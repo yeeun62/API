@@ -31,14 +31,27 @@ module.exports = {
         },
       });
       if (navi.status === 200) {
-        // console.log(navi.data.routes[0].summary);
-        console.log(navi.data);
+        let route = {
+          duration: msToTime(navi.data.routes[0].sections[0].duration * 1000),
+          distance: `${navi.data.routes[0].sections[0].distance / 1000}km`,
+        };
+        if (wayPoint) {
+          let distance = navi.data.routes[0].sections.reduce(
+            (acc, cur) => acc + cur.distance,
+            0
+          );
+          let duration = navi.data.routes[0].sections.reduce(
+            (acc, cur) => acc + cur.duration,
+            0
+          );
+          route = {
+            duration: msToTime(duration * 1000),
+            distance: `${distance / 1000}km`,
+          };
+        }
         res.status(200).json({
           data: navi.data,
-          route: {
-            duration: msToTime(navi.data.routes[0].sections[0].duration * 1000),
-            distance: `${navi.data.routes[0].sections[0].distance / 1000}km`,
-          },
+          route,
         });
       } else {
         res.status(500).json({ message: "에러에러" });
