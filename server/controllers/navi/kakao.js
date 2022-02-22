@@ -14,17 +14,10 @@ module.exports = {
   //! 길찾기
   navi: async (req, res) => {
     try {
-      const { start, end, priority, wayPoint } = req.body;
-      let url;
-      if (wayPoint) {
-        url = encodeURI(
-          `https://apis-navi.kakaomobility.com/v1/directions?origin=${start}&destination=${end}&priority=${priority}${wayPoint}`
-        );
-      } else {
-        url = encodeURI(
-          `https://apis-navi.kakaomobility.com/v1/directions?origin=${start}&destination=${end}&priority=${priority}`
-        );
-      }
+      const { start, end, priority, wayPoint, avoid } = req.body;
+      let url = encodeURI(
+        `https://apis-navi.kakaomobility.com/v1/directions?origin=${start}&destination=${end}&priority=${priority}${wayPoint}&avoid=${avoid}`
+      );
       let navi = await axios.get(url, {
         headers: {
           Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
