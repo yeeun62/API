@@ -83,18 +83,20 @@ module.exports = {
     }
   },
 
-  //! 좌표를 행정구역으로 변환
+  //! 좌표를 주소로 변환
   coord: async (req, res) => {
     try {
       let coord = await axios.get(
-        `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${req.body.lng}&y=${req.body.lat}`,
+        `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${req.body.lng}&y=${req.body.lat}`,
         {
           headers: {
             Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
           },
         }
       );
-      res.status(200).json({ address: coord.data.documents[0].address_name });
+      res
+        .status(200)
+        .json({ address: coord.data.documents[0].address.address_name });
     } catch (err) {
       console.log("coord 에러", err);
     }
