@@ -27,6 +27,11 @@ router.post("/navi", controller.navi.navi);
 router.post("/navi/position", controller.navi.position);
 router.post("/navi/coord", controller.navi.coord);
 
+// handle page
+router.post("/page/find", controller.page.findCanvas);
+router.post("/page/create", controller.page.postCanvas);
+router.put("/page/update", controller.page.updateCanvas);
+
 // handle chat //! 안쓰는 부분
 router.post("/chat/create", controller.chat.create);
 router.get("/chat/:code", controller.chat.read);

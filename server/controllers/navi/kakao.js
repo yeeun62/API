@@ -85,18 +85,32 @@ module.exports = {
 
   //! 좌표를 주소로 변환
   coord: async (req, res) => {
+    const { lng, lat, endlng, endlat } = req.body;
     try {
       let coord = await axios.get(
-        `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${req.body.lng}&y=${req.body.lat}`,
+        `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${lng}&y=${lat}`,
         {
           headers: {
             Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
           },
         }
       );
-      res
-        .status(200)
-        .json({ address: coord.data.documents[0].address.address_name });
+      let coord1;
+      if (endlng && endlat) {
+        let end = await axios.get(
+          `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${endlng}&y=${endlat}`,
+          {
+            headers: {
+              Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
+            },
+          }
+        );
+        coord1 = end.data.documents[0].address.address_name;
+      }
+      res.status(200).json({
+        address: coord.data.documents[0].address.address_name,
+        address2: coord1,
+      });
     } catch (err) {
       console.log("coord 에러", err);
     }
