@@ -16,6 +16,7 @@ module.exports = {
   languageKakao: require("./language/kakao"),
   drive: require("./drive/drive"),
   navi: require("./navi/kakao"),
+  page: require("./page/page"),
 
   chat: require("./chat/chat"),
 };
