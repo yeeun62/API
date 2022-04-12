@@ -31,6 +31,8 @@ router.post("/navi/coord", controller.navi.coord);
 router.post("/page/find", controller.page.findCanvas);
 router.post("/page/create", controller.page.postCanvas);
 router.put("/page/update", controller.page.updateCanvas);
+router.get("/page/pixabay", controller.page.getPixabay);
+router.get("/page/searchPix", controller.page.searchPixabay);
 
 // handle chat //! 안쓰는 부분
 router.post("/chat/create", controller.chat.create);
