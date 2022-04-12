@@ -51,4 +51,36 @@ module.exports = {
   },
 
   updateCanvas: (req, res) => {},
+
+  getPixabay: async (req, res) => {
+    console.log(req);
+    let category = ["backgrounds", "education", "business", "feelings"];
+    let key = process.env.PIXABAY_API_KEY;
+
+    try {
+      const result = await axios.get(
+        `https://pixabay.com/api/?key=${key}&lang=ko&category=${category[0]}`
+      );
+      if (result.status === 200) {
+        res.status(200).json({ category: category[0], data: result.data.hits });
+      }
+    } catch (err) {
+      res.status(400).json({ message: "bad request" });
+    }
+  },
+
+  searchPixabay: async (req, res) => {
+    let q = "flower";
+
+    try {
+      const search = await axios.get(
+        `https://pixabay.com/api/?key=${key}&q=${q}`
+      );
+      if (search.status === 200) {
+        res.status(200).json({ query: q, data: search.data.hits });
+      }
+    } catch (err) {
+      res.status(400).json({ message: "bad request" });
+    }
+  },
 };
