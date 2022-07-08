@@ -53,7 +53,6 @@ module.exports = {
   updateCanvas: (req, res) => {},
 
   getPixabay: async (req, res) => {
-    console.log(req);
     let category = ["backgrounds", "education", "business", "feelings"];
     let key = process.env.PIXABAY_API_KEY;
 

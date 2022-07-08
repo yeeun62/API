@@ -11,6 +11,10 @@ module.exports = async (req, res) => {
     tmap(start, goal, option);
   } else if (platform === "ncloud") {
     ncloud(start, goal, option);
+  } else {
+    res.status(404).json({
+      message: "해당 플랫폼을 찾을 수 없습니다.",
+    });
   }
 
   async function tmap(start, goal, option) {
